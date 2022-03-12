@@ -1,0 +1,28 @@
+\subsection{Uniqueness of the Shapley Value}
+\label{sec:uniqueness}
+Not only did Shapley prove the existence of such a value function $\phi$, but he also proved the uniqueness of this function: From above, recall the that the characteristic function of a game $v$ is a function from $\p(N) \to \R$.  For any finite set $N$, we know that $|\p(N)| = 2^{|N|}$. Therefore, by enumerating the subsets of $N$ as $\p(N) = \{S_1,,...,S_{2^{|N|}}\}$, we can simply think of any characteristic function a vector in $v \in \R^{2^{|N|}}$ such that the $i-$th index of the vector contains the value $v(S_i)$.  Therefore, since each valid characteristic function must satisfy the property of super-additivity, the set of all characteristic functions is a subset of $\R^n$. By the additivity axiom of $\phi$ stated above, it is clear that if a given value function $\phi$ is produced for a set of characteristic functions i.e. vectors in $R^{2^{|N|}}$ that form a basis of the set of all characteristic functions, then the value function will extend to any characteristic function.
+
+The uniqueness proof follows in this vein by considering the following class of games:
+Fix a subset $R \in \p(N)$. Then, define the characteristic function of the game as 
+$$v_R(S) = 
+\begin{array}{cc}
+  \{ 
+    \begin{array}{cc}
+      1 & R \subset S \\
+      0 & R \not \subset S 
+    \end{array}
+\end{array}
+\text{ for any subset S } \in \p(N)$$
+
+By this definition, for any $R$, it is clear to see that every player $i \notin R$ is a null player and thus by axiom 2 of the value function we know that $\phi_i(v_R) = 0$.  Furthermore, we also have that all players $i \in R$ must be symmetric. This follows since if $|R| > 1$, we have that for any player $i \in R$, $v(\{i\}) = 0$ since $R \not \subset S$.  Therefore, by axiom 1 above for any $i,j \in R$, we know that $\phi_i(v_R) = \phi_j(v_R)$. Finally, by the efficiency axiom, combining the prior two facts, we know that $\sum_{i \in N}\phi_i(v_R) = \sum_{i \in R}\phi_i(V_R) = v(N) = 1$ and thus $\phi_i(V_R) = \frac{1}{|R|}$ for all $i \in R$. Therefore, we have shown that such a value $\phi$ is uniquely defined for any game of the form $v_R$.  Furthermore, for any constant $c \in \R$, it follows analogously that the value is unique in the game defined by the function $cv_R$.  
+Notice that set of characteristic functions $v_R$ form a basis of the set of all possible characteristic functions. This follows both from the fact that any characteristic function $v$ can be expressed as a linear combination of the characteristic functions $v_R$, and from the fact that the set of characteristic functions $v_R$ is itself linearly independent. By the additivity axiom, since the value $\phi$ is uniquely determined for any characteristic function $cv_R$, it follows immediately that $\phi(v)$ must be unique \citep{shapleyValue}.
+
+
+Shapley proved that this unique value $\phi$ of a game $\{N,v\}$ called the Shapley value is defined as follows:
+\begin{equation}
+\phi_i(v) = \sum_{S \subseteq N \setminus \{i\}} \frac{|S|!(|N| - |S| - 1)!}{|N|!}(v(S \cup \{i\}) - v(S)    )
+\label{shapley_value}
+\end{equation}
+
+
+The Shapley value of a player $i \in N$, $\phi_i(v)$ represents the player's "value" of the game.  Here, Shapley proves that a player's value under the above described assumptions can be uniquely expressed as a weighted average of the given player $i$'s aggregated marginal contribution to the coalitions $S \subset N$. With respect to a specific coalition $S$, player $i$'s marginal contribution can be quantified as $v(S \cup \{i\}) - v(S)$. Intuitively, this is how much the utility of the coalition increases due to $i$'s contribution.  This is a seminal result in the analysis of cooperative games and can be used in many diverse applications to gain a deeper understanding of the inter-workings of cooperative behavior \citep{shapleyValue}.

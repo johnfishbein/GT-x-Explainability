@@ -1,0 +1,27 @@
+\subsection{A Unified Approach to Interpreting Model Predictions \citep{microsoftPaper}}
+\label{sec:lundberg}
+
+\citet{QII_MS3} and number of other researchers ([\citenum{ribeiroSG16_MS5}], [\citenum{shrikumarGSK16_MS8}], [\citenum{strumbelj_explaining_2014_MS9}], [\citenum{regressionInGameTheory_MS4}], [\citenum{bach_pixel-wise_2015_MS1}]) have aimed to provide similar tools to help improve the field of model explainability. However, these approaches were seemingly somewhat disparate, and little was known about their relationship to one another or in what situation certain techniques were preferable. The work done by \citet{microsoftPaper} unifies these approaches under a single class of what they call additive feature attribution models. They go on to demonstrate this unification by showing that all of these previous methods are really approximating the same value, which they name the Shapley Additive Explanations value, or SHAP. Lastly, they propose novel SHAP estimation methods and provide evidence for their superior efficacy with respect to the previous models by comparing the results of the different models to empirically determined human intuition and showing they in some cases their model has increased performance as a discriminator between output classes \citep{microsoftPaper}.
+
+\subsubsection{Additive Feature Attribution Models}
+
+They define this general class of explanation models which try to explain the importance of different input features to the predictive model $f(x)$'s output, again called additive feature attribution models, as follows: First, a particular input $z$ whose corresponding predictive model output we are seeking to explain is mapped to a simplified variable $z'$, which is a vector of binary inputs $\{0,1\}^M$. We then seek to come up with a function $g(x)$, associated with a particular input $z$, such that $g_z(z') \approx f(z)$. Each $g(x)$ is a linear in its input variables, that is
+
+\begin{equation}
+    g_z(z') = \phi_0 + \sum_{i=1}^M \phi \cdot z_i'
+\end{equation}
+
+They discuss how each of the aforementioned explanation models do indeed fit into this framework. Next, they demonstrate three properties that models of this class share.
+
+\begin{enumerate}
+    \item \textbf{Local Accuracy}: For a given $z$, $g_z(z') = f(z)$.
+    \item \textbf{Missingness}: $z'_i = 0 \implies \phi_i = 0$, meaning we don't attribute any impact on the predictive model's output to covariates which are toggled off in the simplified binary mapping $z'$ of the input variable $z$.
+    \item \textbf{Consistency}: If a covariate $i$'s contribution to the model output is larger in some model $f'(x)$ than in $f(x)$, which is determined by comparing each model's output before and after removing $i$ from the input sample, then the explanation model's attribution $\phi_i$ for $f'(x)$ should be greater than its corresponding attribution for $f(x)$.
+\end{enumerate}
+
+They then generalize \citet{QII_MS3}'s theorem that the Shapley value is the only explanation model that satisfies their three more specific explanation model criteria by showing that it is also the unique explanation model which satisfies these three criteria \citep{microsoftPaper}.
+
+\subsubsection{SHAP Estimation}
+
+Recall the precise method of computation of the Shapley value in this framework, seen in \hyperref[sec:history]{Section 3.1}. They go on to propose a novel method of estimating the SHAP, by building on a previously proposed method called Linear LIME \citep{ribeiroSG16_MS5}. The high level goal of this method is to locally approximate the prediction function $f(x)$ with a linear model, whose coefficients represent the feature importance of their respective covariates. The insight by \citet{microsoftPaper} is that particular choices for the Linear LIME's loss function, weighting kernel, and regularization term can ensure that the method's solution recovers the Shapley values for each of the covariates, which is desirable because it means this explanation model will exhibit local accuracy, missingness, and consistency. They call this method Kernel SHAP, and go on to demonstrate its superior performance in a number of settings, both in terms of efficiency and accuracy, as compared to any previously proposed approaches.
+

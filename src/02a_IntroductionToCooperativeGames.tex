@@ -1,0 +1,6 @@
+\subsection{Introduction to Cooperative Game Theory}
+\label{sec:intro}
+
+The characteristic functional form, also known as the coalitional form, of cooperative game $\{N,v\}$ is defined by a set $N = \{1,...,n\}$ of players and a function $v: \p(N) \to \R$ called the characteristic function of the game. Note that $v$ maps a subset, or a ``coalition'', of players $S \subseteq N$ to a real number $v(S)$ and can be interpreted as the utility of the group of players in the game.  The only restriction on this characteristic function is that it must be super-additive, i.e. for any disjoint $S, U \subseteq N$, it follows that $v(S \cup U) \geq v(S) + V(U)$. This implies that the utility of a coalition of two individual players $i,j$ must be at least the sum of their individual utilities \citep{shapEssays}.
+
+Shapley aims to define a function representing the value of playing a cooperative game for each of the $n$ players depending only on the game's characteristic function.  That is, the value of a game $\{N,v\}$ denoted $\phi(v)$ is a vector in $\R^n$ such that $\phi_i(v)$ can be thought of as the value to player $i$ in playing the game.  This is roughly analogous to how the expected utility sums up the value of a particular move in a normal-form game for one of the game's players in a single number \citep{shapEssays}.

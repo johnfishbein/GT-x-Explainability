@@ -1,0 +1,19 @@
+\subsection{Axioms of the Shapley Value}
+\label{sec:axioms}
+
+Shapley argues that any $\phi$ that adequately represents the value of a cooperative game must satisfy $5$ axioms for any game $\{N,v\}$  \citep{shapleyValue}. The axioms are stated as follows:
+\begin{enumerate}
+    \item \textit{Symmetry}: \\
+    This axiom states that for any two players $i,j \in N$, if $v(\{i\}) = v(\{j\})$, then it must be that $\phi_i(v) = \phi_j(v)$.  In other words, if the characteristic function of the game treats players $i$ and $j$ equivalently, then players $i$ and $j$ should have the same overall value of the game. 
+    \item \textit{Null Player}: \\
+    This axiom states that for any player $i \in N$ that is a Null player, it must be that $\phi_i(v) = 0$. A player $i \in N$ is a null player if for any $S \subseteq N$, we have that $v(S \cup \{i\}) = v(S)$. In other words, a player is a null player if his precesnse in a given coalition $S$ does not have any impact on the utility of the coalition.
+    \item \textit{Efficiency}:  \\
+    This axiom states that it must be that $\sum_{i\in N}\phi_i(v) = v(N)$. Equivalently, we have that the sum of the values of each player must be equal to the overall utility of the coallition containing all $N$ players.
+    \item \textit{Additivity}: \\
+    This axiom deals with the interaction of values between different games. It states that for any two cooperative games $\{N, v_1\}$ and $\{N,v_2\}$, it must be that $\phi(v_1) + \phi(v_1) = \phi(v_1+v_2)$, where $(v_1+v_2): \p(N) \to \R$ is the function such that $(v_1+v_2)(S) = v_1(S) + v_2(S)$.
+    \item \textit{Monotonicity}*: \\
+    This axiom deals again with the comparison of the two different games. For any two cooperative games $\{N, v_1\}$ and $\{N,v_2\}$, it must be that $\phi$ must satisfy (strong) monotonicity. In this context, it must be that if $v_1(S \cup \{i\}) - v_1(S) \geq v_2(S \cup \{i\}) - v_2(S)$ for all $S \subseteq N \setminus \{1\}$ then $\phi_i(v_1) \geq \phi_i(v_2)$. If the first inequality is strict, then the second must be as well, hence "strong". The quantity $v(S \cup \{i\}) - v(s)$ represents the marginal contribution of $i$ to $S$. Intuitively, this axiom states that if $i$ has a higher influence in one game compared to another, $i$ must have a higher value for that game as well.
+    
+    
+*Note that the $5$-th axiom of monotonicity was not included in Shapley's original paper, but has since been generalized by further work in the field \citep{monotonicity}.    
+\end{enumerate} 

@@ -1,0 +1,52 @@
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{bbold}
+\usepackage[english]{babel}
+\usepackage[colorlinks,urlcolor=blue]{hyperref}
+\usepackage[osf]{mathpazo}
+\usepackage{amsthm}
+\usepackage{amsmath,amsfonts,amssymb,amsthm,graphicx,enumitem}
+\usepackage{latexsym}
+\renewcommand{\baselinestretch}{1.05}
+\usepackage{natbib}
+\usepackage[margin=1in]{geometry}
+\usepackage[mathscr]{euscript}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\I}{\mathbb{I}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\p}{\mathscr{P}}
+
+\newcommand{\fnote}[1]{\ifcomments{\color{blue} [\bf {Fish:}  #1]}\fi}
+\newcommand{\jnote}[1]{\ifcomments{\color{red} [\bf {Jack:}  #1]}\fi}
+
+
+% \title{Game Theory Final Project}
+\title{Cooperative Game Theory and its Applications in \\Model Explainability}
+\author{John Fishbein, Jack Prescott}
+\date{Spring 2021}
+
+
+\begin{document}
+
+\maketitle
+\setcounter{tocdepth}{2}
+\tableofcontents
+
+\input{01_Motivation}
+\input{02_CooperativeGameTheory}
+\input{02a_IntroductionToCooperativeGames}
+\input{02b_AxiomsofShapValue}
+\input{02c_UniquenessofShapValue}
+\input{03_GameTheoryAppliedToExplainability}
+\input{03a_HistoryofGameTheoryinExplainability}
+\input{03b_DattaQII}
+\input{03c_LundbergModelInterpretation}
+\input{04_Conclusion}
+
+\clearpage
+\bibliographystyle{plainnat}
+\bibliography{refs}
+
+\end{document}

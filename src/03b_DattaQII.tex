@@ -1,0 +1,45 @@
+\subsection{Algorithmic Transparency via Quantitative Input Inﬂuence \citep{QII_MS3}}
+\label{sec:QII}
+In 2016, \citet{QII_MS3} put forth a general explainability framework using the Shapley value in order to combat this issue of algorithmic bias that is prevalent in the field of Machine Learning. This work generalizes prior applications of cooperative game theory in the model explainability.  In this field's seminal work, they introduce a family of \textit{Quantitative Input Influence (QII)} functions to represent the relative influence of a feature on a given model's predictions.  The purpose of the QII measure is to provide insight into how a complex, black-box machine learning model produces its predictions and assists in evaluating the efficacy of those predictions. This, in turn, ultimately could be used to reduce algorithmic bias in enterprise machine learning.   In order to achieve these goals, ``$3$ desiderata drove the definitions of these [QII] measures'' \citep{QII_MS3}:
+
+    \begin{enumerate}
+        \item \textbf{Generalized Transparency Reports} \\
+        In order to begin to discuss the influence of an input, we need to thoroughly define the quantity against which we will measure this influence. To accomplish this, \citet{QII_MS3} define a \textit{Quantity of Interest} to be a property of of the behavior of a system given an input distribution. This abstract definition gives rise to many possible metrics which can be evaluated against within this proposed framework.
+        
+        \item \textbf{Input Influence Quantification of Correlated Inputs} \\
+        \label{sec:QII.2}
+        In applications of supervised machine learning, the features used almost always have some level of correlation. For a given input of interest, in order to adequately quantify the overall influence of that feature from a causal standpoint, it must be done independently of the feature's correlation with the rest of the dataset. In order to achieve this goal, the proposed QII measures work on a given model with two separate input datasets. The first is a sample input data set drawn from the original input distribution. The second dataset is a hypothetical distribution computed from the first by holding all features constant except for the feature of interest. In this hypothetical distribution, the feature of interest is replaced by randomly sampling a new value from its own marginal distribution, thereby removing its correlation from the other inputs. In effect, this technique of \textit{Causal Intervention} allows the influence of the input of interest to be measured independently of it's correlated inputs.  At a high level, the QII measure then works by measuring the Quantity of Interest with respect to each dataset and then computing the difference between the two [\citenum{QII_MS3}].
+        
+        
+        \item \textbf{Joint \& Marginal Input Influence Quantification w.r.t. Multiple Features}
+        Finally, there are many cases in machine learning applications in which no single feature has any meaningful influence on the overall output of the model.  In cases like these, we wish to quantify the influence of a set of inputs rather than just a single input.  In order to compute this joint influence, the method of \textit{Causal Intervention} from ($\ref{sec:QII.2}$) can be naturally extended by replacing the entire set of inputs of interest with a random sample from it's joint prior distribution in the second manufactured distribution. Furthermore we may wish to quantify the marginal influence of a given input of interest within this joint influence. Viewing this in the context of a cooperative game, this goal can be achieved by measuring the difference in the quantity of interest when considering the joint influence of sets of inputs both with and without that particular input. In this game-theorietic setting, we can also consider the aggregate marginal influence of a given input with respect to many different sets of inputs. [\citenum{QII_MS3}].
+    \end{enumerate}
+    
+    Formally, \citet{QII_MS3} introduce the following $3$ definitions in the context of model explainability: Suppose that a given system $A$ has inputs $N = \{1,...,n\}$.  Let $X = (x_1,...,x_i,...,x_n)$ be a random vector representing the true input distribution of a given system $A$ and let $Q_A(\cdot)$ be the desired quantity of interest of the model $A$ with respect to an input distribution. Furthermore, suppose that $i \in N$ is the. feature of interest.  Then, denote the intervened distribution as $X_{-i}U_i = (x_1,...,u_i,...,x_n)$ which is computed through Causal Intervention. Similarly, if $S \subseteq N$ consist of multiple features of interest, denote the intervened distribution as $X_{-S}U_S$. The definitions introduced by \citep{QII_MS3} are as follows:
+    
+    \begin{enumerate}
+        \item The \textbf{Quantitative Input Influence (Unary QII)} of an input $i \in N$ on the quantity of interest $Q_A(\cdot)$ is defined to be the difference in the quantity of interest between the true and intervened datasets $X$ and $X_{-i}U_i$
+    
+    \begin{equation}
+        \label{QII_Equation1}
+        \iota^{Q_A}(i) = Q_A(X) - Q_A(X_{-i}U_i)
+    \end{equation}
+    
+        \item The \textbf{Quantitative Input Influence (Set QII)} of the set $S \subseteq N$ on the quantity of interest $Q_A(\cdot)$ is defined to be as the difference in the quantity of interest between the true and intervened datasets $X$ and $X_{-S}U_S$
+    \begin{equation}
+        \label{QII_Equation1}
+        \iota^{Q_A}(S) = Q_A(X) - Q_A(X_{-S}U_S)
+    \end{equation}
+    
+     \item The \textbf{Quantitative Input Influence (Marginal QII)} of an input $i \in N$ over a set $S \subseteq N$ on the quantity of interest $Q_A(\cdot)$ is defined to be as the difference in the quantity of interest between the datasets intervened on the set $S$ and the set $S \cup \{i\}$.
+    \begin{equation}
+        \label{QII_Equation1}
+        \iota^{Q_A}(i,S) = Q_A(X_{-S}U_S) - Q_A(X_{-S \cup \{i\}}U_{S \cup \{i\}})
+    \end{equation}
+    \end{enumerate}
+    
+    Recall from above, the Shapley value $\phi_i(v)$ \eqref{shapley_value} quantifies the marginal contribution of a "player" $i$ in a cooperative game with respect to the game's characteristic function $v$. In the context of input influence in machine learning models, while operating under the natural axioms stated in \hyperref[sec:axioms]{Section 1.2} given the Shapley value is the \textit{unique} way of producing a measure with the desired significance and generality. Recall from \hyperref[sec:history]{Section 3.1} the computational difficulty of calculating the exact Shapely value. They propose a novel $\epsilon-\delta$ approximation scheme for the Shapley value \citep{bachrach_approximating_shapley}, which is an improvement over past methods, though still fairly inefficient and similar to the sampling technique used by \citet{strumbelj_efficient_2010} and \citet{regressionInGameTheory_MS4}. It would soon be surpassed in efficacy by the next publication we will discuss.
+    
+        
+        
+    
